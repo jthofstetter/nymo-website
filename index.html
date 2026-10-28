@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nymo – Say it to someone who doesn’t know you</title>
+<meta name="description" content="Nymo connects you with one stranger, anywhere in the world. No names, no profiles — just a real conversation. Anonymous, one-on-one, for adults.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nymo">
+<meta property="og:title" content="Nymo – Say it to someone who doesn’t know you">
+<meta property="og:description" content="One stranger, anywhere in the world. No names, no profiles — just a real conversation.">
+<meta property="og:image" content="assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nymo: a white dot and a white ring joined by a thin line, with the words Say it to someone who doesn’t know you.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/nymo.css">
+<script>(function (c) { c.remove("no-js"); c.add("js"); try { if (!location.hash && !sessionStorage.getItem("nymo-intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches) c.add("intro"); } catch (e) {} })(document.documentElement.classList);</script>
+<script src="assets/js/nymo-core.js" defer></script>
+<script src="assets/js/nymo-gl.js" defer></script>
+<script src="assets/js/nymo.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Intro: the app's search, then the match. Plays once per visit. -->
+<div class="loader" data-loader aria-hidden="true">
+  <div class="loader__radar">
+    <span class="loader__ring"></span>
+    <span class="loader__ring loader__ring--2"></span>
+    <span class="loader__ring loader__ring--3"></span>
+  </div>
+  <p class="loader__label"><span data-loader-label>Finding someone for you…</span></p>
+</div>
+<div class="loader-pair" data-loader-pair aria-hidden="true"><span class="loader-pair__you"></span><span class="loader-pair__them"></span></div>
+
+<!-- =====================================================================
+     Navigation
+     ===================================================================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="Nymo, back to top">
+      <svg class="brand__mark" viewBox="0 0 40 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#fff"/><circle cx="30" cy="10" r="9.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+      <span class="brand__word">nymo</span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#safety">Safety</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--primary btn--sm nav__cta" href="https://play.google.com/store/apps/details?id=app.nymo&amp;referrer=utm_source%3Dnymo-website%26utm_medium%3Dnav%26utm_campaign%3Dwebsite" data-store="nav">Get the app</a>
+    <button class="nav__menu glass" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="menu" data-menu-open>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M5 9h14"/><path d="M5 15h14"/></svg>
+    </button>
+  </div>
+</header>
+
+<dialog class="sheet" id="menu" aria-label="Menu">
+  <span class="sheet__grip" aria-hidden="true"></span>
+  <nav class="sheet__links glass" aria-label="Menu">
+    <a href="#how">How it works<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#privacy">Privacy<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#safety">Safety<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#faq">FAQ<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+  </nav>
+  <a class="btn btn--primary sheet__cta" href="https://play.google.com/store/apps/details?id=app.nymo&amp;referrer=utm_source%3Dnymo-website%26utm_medium%3Dmenu%26utm_campaign%3Dwebsite" data-store="menu">Get it on Google Play</a>
+  <button class="btn btn--glass glass sheet__close" type="button" data-menu-close>Close</button>
+</dialog>
+
+<main id="main">
+
+<!-- =====================================================================
+     Hero
+     ===================================================================== -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__sky" aria-hidden="true">
+    <canvas class="hero__field"></canvas>
+    <canvas class="hero__globe" data-globe></canvas>
+    <svg class="hero__pair" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="sky-glow">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.2"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <line class="pair__line" x1="0" y1="0" x2="0" y2="0" pathLength="1" stroke-dasharray="1"/>
+      <g class="pair__you">
+        <g class="pair__pop">
+          <circle class="pair__halo" r="70"/>
+          <circle class="pair__orbit" r="24"/>
+          <circle class="pair__dot" r="8"/>
+        </g>
+      </g>
+      <g class="pair__them">
+        <g class="pair__pop">
+          <circle class="pair__halo" r="70"/>
+          <circle class="pair__orbit" r="24"/>
+          <circle class="pair__ring" r="7.4"/>
+        </g>
+      </g>
+    </svg>
+    <span class="pair-label pair-label--you">you</span>
+    <span class="pair-label pair-label--them">someone, somewhere</span>
+  </div>
+
+  <div class="wrap hero__inner">
+    <div class="hero__space" aria-hidden="true"></div>
+    <h1 class="hero__title" id="hero-title">
+      <span class="line"><span style="--i:0">Say it to someone</span></span>
+      <span class="line"><span style="--i:1">who doesn’t</span></span>
+      <span class="line"><span style="--i:2">know you.</span></span>
+    </h1>
+    <div class="hero__foot">
+      <p class="hero__lede" style="--i:0">Nymo connects you with one stranger, anywhere in the world. No names, no profiles — just a real conversation.</p>
+      <div class="hero__actions" style="--i:1">
+        <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=app.nymo&amp;referrer=utm_source%3Dnymo-website%26utm_medium%3Dhero%26utm_campaign%3Dwebsite" data-store="hero" data-magnetic>Get it on Google Play</a>
+        <a class="text-link" href="#how">See how it works</a>
+      </div>
+      <p class="hero__note" style="--i:2">Only for people 18 and older.</p>
+    </div>
+  </div>
+  <p class="hero__hint" aria-hidden="true"><span class="hero__hint-dot"></span>Drag the globe</p>
+</section>
+
+<!-- =====================================================================
+     Manifesto — lights up word by word while scrolling
+     ===================================================================== -->
+<section class="manifest" aria-labelledby="manifest-title">
+  <div class="wrap">
+    <h2 class="sr" id="manifest-title">Why Nymo</h2>
+    <svg class="manifest__mark" viewBox="0 0 40 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#fff"/><circle cx="30" cy="10" r="9.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+    <p class="manifest__text" data-manifest>Some things are easier to say to a stranger. No names, no profiles, no history. One person somewhere in the world listens. When one of you leaves, the chat is gone.</p>
+  </div>
+</section>
+
+<!-- =====================================================================
+     How it works
+     ===================================================================== -->
+<section class="how" id="how" aria-labelledby="how-title">
+  <div class="wrap how__grid">
+    <header class="how__head">
+      <h2 class="h2" id="how-title" data-reveal>Three steps.<br>No strings.</h2>
+    </header>
+
+    <ol class="steps" role="list">
+      <li class="step is-active" data-step="home">
+        <div class="step__trigger is-active" data-trigger="home">
+          <div class="step__meta">
+            <span class="step__num">01</span>
+            <svg class="step__glyph" viewBox="0 0 52 20" width="52" height="20" aria-hidden="true"><rect x="0.75" y="4.75" width="22.5" height="10.5" rx="5.25" fill="none" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5"/><rect x="28" y="4" width="24" height="12" rx="6" fill="currentColor"/></svg>
+          </div>
+          <h3 class="h3">Pick a topic — or don’t.</h3>
+          <p class="step__text">Choose what’s on your mind, or keep it open and see where the conversation goes.</p>
+          <p class="step__detail">Twelve topics, from Loneliness to Just venting. Add an age range if you like.</p>
+        </div>
+      </li>
+      <li class="step" data-step="match">
+        <div class="step__trigger" data-trigger="match">
+          <div class="step__meta">
+            <span class="step__num">02</span>
+            <svg class="step__glyph" viewBox="0 0 32 20" width="32" height="20" aria-hidden="true"><circle cx="8" cy="10" r="8" fill="currentColor"/><circle cx="24" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="h3">Meet one stranger.</h3>
+          <p class="step__text">One person, somewhere in the world. Neither of you sees who the other is.</p>
+          <p class="step__detail">Nymo looks for someone who chose the same topic. You see their age group and nothing else.</p>
+        </div>
+      </li>
+      <li class="step" data-step="talk">
+        <div class="step__trigger step__trigger--short" data-trigger="chat">
+          <div class="step__meta">
+            <span class="step__num">03</span>
+            <svg class="step__glyph" viewBox="0 0 52 20" width="52" height="20" aria-hidden="true"><circle cx="6" cy="10" r="6" fill="currentColor"/><line x1="16" y1="10" x2="36" y2="10" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 4"/><circle cx="46" cy="10" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h3 class="h3">Talk, then let go.</h3>
+          <p class="step__text">Say what’s on your mind. Names, places and numbers are hidden before the other person sees them.</p>
+        </div>
+        <div class="step__trigger step__trigger--short" data-trigger="ended">
+          <p class="step__text">When one of you leaves, the chat closes for good. Nothing to scroll back through.</p>
+          <p class="step__detail">A chat that goes quiet for 30 minutes closes on its own.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="device-col">
+      <div class="device" role="img" aria-label="The Nymo app: picking a topic, finding someone, chatting with a hidden place name, and the closed chat.">
+        <span class="device__edge" aria-hidden="true" style="--z:1"></span>
+        <span class="device__edge" aria-hidden="true" style="--z:2"></span>
+        <span class="device__edge" aria-hidden="true" style="--z:3"></span>
+        <span class="device__edge" aria-hidden="true" style="--z:4"></span>
+        <span class="device__edge" aria-hidden="true" style="--z:5"></span>
+        <span class="device__edge" aria-hidden="true" style="--z:6"></span>
+        <span class="device__glare" aria-hidden="true"></span>
+        <div class="device__screens" data-screens>
+
+          <!-- 01 · Pick a topic -->
+          <div class="screen-wrap is-active" data-screen="home" aria-hidden="true">
+            <div class="screen">
+              <div class="a-top">
+                <span class="a-brand"><svg width="32" height="16" viewBox="0 0 40 20"><circle cx="10" cy="10" r="10" fill="#fff"/><circle cx="30" cy="10" r="9.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg>nymo</span>
+                <span class="a-iconbtn glass"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h9"/><path d="M19 7h1"/><circle cx="16" cy="7" r="2.5"/><path d="M4 17h2"/><path d="M12 17h8"/><circle cx="9" cy="17" r="2.5"/></svg></span>
+              </div>
+              <div class="a-intro">
+                <div class="a-h1">What's on<br>your mind?</div>
+                <div class="a-sub">Pick a direction — or keep it open.</div>
+              </div>
+              <div class="a-any glass">
+                <span class="a-radio"></span>
+                <span class="a-any__txt"><span class="a-any__t">Anything</span><span class="a-any__s">No topic. See where it goes.</span></span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#969696" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+              </div>
+              <div class="a-topics">
+                <div class="a-label">Or choose a topic</div>
+                <div class="a-chips">
+                  <span class="a-chip is-on">Loneliness</span><span class="a-chip glass">Relationships</span><span class="a-chip glass">Family</span><span class="a-chip glass">Heartbreak</span><span class="a-chip glass">Self-doubt</span><span class="a-chip glass">Grief &amp; loss</span><span class="a-chip glass">Work &amp; school</span><span class="a-chip glass">Stress</span><span class="a-chip glass">The future</span><span class="a-chip glass">Friendship</span><span class="a-chip glass">Secrets</span><span class="a-chip glass">Just venting</span>
+                </div>
+              </div>
+              <div class="a-bottom">
+                <span class="a-pill glass"><span class="a-label a-label--s">Age</span>Any age<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#969696" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+                <span class="a-primary">Find someone</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 · Searching -->
+          <div class="screen-wrap" data-screen="search" aria-hidden="true">
+            <div class="screen">
+              <div class="a-top a-top--center">
+                <span class="a-pill a-pill--s glass"><span class="a-label a-label--s">Topic</span>Loneliness</span>
+              </div>
+              <div class="a-radar">
+                <svg width="390" height="340" viewBox="0 0 390 360">
+                  <circle cx="290.3" cy="125" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1.25"/>
+                  <circle cx="44.6" cy="125.3" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="1.25"/>
+                  <circle cx="165" cy="232" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="1.25"/>
+                  <circle cx="275" cy="318.6" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="1.25"/>
+                  <circle cx="157.4" cy="76.6" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="1.25"/>
+                  <circle cx="275" cy="41.4" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="1.25"/>
+                  <circle cx="91.6" cy="217.6" r="3.5" fill="none" stroke="#fff" stroke-opacity="0.2" stroke-width="1.25"/>
+                </svg>
+                <span class="a-halo"></span>
+                <span class="a-ring"></span>
+                <span class="a-ring a-ring--2"></span>
+                <span class="a-ring a-ring--3"></span>
+                <span class="a-core"></span>
+              </div>
+              <div class="a-center">
+                <div class="a-h2">Finding someone<br>for you…</div>
+                <div class="a-sub a-sub--s">Somewhere in the world, someone is ready to listen.</div>
+              </div>
+              <div class="a-card glass">
+                <div class="a-label a-label--s">While you wait</div>
+                <p>You don't need the right words. “Today was hard” is a good enough start.</p>
+              </div>
+              <div class="a-bottom">
+                <span class="a-secondary glass">Cancel</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 · Connected -->
+          <div class="screen-wrap" data-screen="connected" aria-hidden="true">
+            <div class="screen">
+              <svg class="a-conn" width="390" height="220" viewBox="0 0 390 220">
+                <defs>
+                  <pattern id="conn-dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="1.3" fill="#3d3d3d"/></pattern>
+                  <radialGradient id="conn-fade" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff"/><stop offset="0.55" stop-color="#fff" stop-opacity="0.45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+                  <mask id="conn-mask"><rect width="390" height="220" fill="url(#conn-fade)"/></mask>
+                  <radialGradient id="conn-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity="0.22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="390" height="220" fill="url(#conn-dots)" mask="url(#conn-mask)"/>
+                <circle cx="195" cy="110" r="96" fill="#000" fill-opacity="0.7" stroke="#fff" stroke-opacity="0.08"/>
+                <circle class="c-glow" cx="195" cy="110" r="110" fill="url(#conn-glow)"/>
+                <line class="c-link" x1="85" y1="110" x2="305" y2="110" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="220"/>
+                <g class="c-orb c-orb-l"><circle cx="155" cy="110" r="40" fill="#fff"/></g>
+                <g class="c-orb c-orb-r"><circle cx="235" cy="110" r="39.25" fill="#000" stroke="#fff" stroke-width="1.5"/></g>
+              </svg>
+              <div class="a-center">
+                <div class="a-label">Matched</div>
+                <div class="a-h1">You're connected.</div>
+                <div class="a-sub">Someone, somewhere in the world, chose Loneliness too.</div>
+                <span class="a-pill a-pill--s glass"><span class="a-label a-label--s">Age</span>35–44</span>
+              </div>
+              <ul class="a-list glass">
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.5 10.5 0 0 1 12 5c5 0 8.6 4.4 9.5 7a13.5 13.5 0 0 1-2.5 3.6"/><path d="M6.6 6.6C4.5 8 3.1 10.1 2.5 12c.9 2.6 4.5 7 9.5 7 1.7 0 3.2-.5 4.5-1.2"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>You're both anonymous</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6L12 3z"/></svg>Names, numbers and links get hidden</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg>Report or leave anytime</li>
+              </ul>
+              <div class="a-bottom a-bottom--tight">
+                <span class="a-primary">Start talking</span>
+                <span class="a-ghost">Find someone else</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 · Chat -->
+          <div class="screen-wrap" data-screen="chat" aria-hidden="true">
+            <div class="screen">
+              <div class="a-chathead">
+                <span class="a-avatar"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg><i></i></span>
+                <span class="a-who"><b>Stranger</b><span>Loneliness · 35–44</span></span>
+                <span class="a-end glass">End</span>
+                <span class="a-iconbtn glass"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></span>
+              </div>
+              <div class="a-msgs">
+                <div class="a-sys a-seq" style="--d:0">Chat started · Loneliness</div>
+                <div class="a-group a-seq" style="--d:250"><div class="a-b glass">hey. not sure how to start this</div></div>
+                <div class="a-group a-group--out a-seq" style="--d:1150"><div class="a-b a-b--out">take your time. there's no wrong way</div></div>
+                <div class="a-group">
+                  <div class="a-b glass a-seq" style="--d:2150">i moved to a new city four months ago. everyone back home thinks i'm doing great</div>
+                  <div class="a-b a-b--cont glass a-seq" style="--d:2750">i'm really not</div>
+                </div>
+                <div class="a-group a-group--out a-seq" style="--d:3800"><div class="a-b a-b--out">that sounds really lonely. is there anyone you can be honest with?</div></div>
+                <div class="a-group">
+                  <div class="a-b glass a-seq" style="--d:5000">my sister maybe. but she lives in <span class="a-hid"></span> and she'd only worry</div>
+                  <div class="a-note a-seq" style="--d:5450"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6L12 3z"/></svg>Nymo hid a place name</div>
+                  <div class="a-typing glass a-seq" style="--d:6100"><i></i><i></i><i></i></div>
+                </div>
+              </div>
+              <div class="a-composer">
+                <span class="a-field">Say what's on your mind…</span>
+                <span class="a-send"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 · Chat closed -->
+          <div class="screen-wrap" data-screen="ended" aria-hidden="true">
+            <div class="screen">
+              <div class="a-top a-top--end">
+                <span class="a-ghost" style="align-self:auto;padding:0 12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg>Report</span>
+              </div>
+              <svg class="a-rise" style="--d:0;margin-top:22px;flex:none" width="390" height="180" viewBox="0 0 390 180">
+                <defs><radialGradient id="ended-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity="0.2"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+                <circle cx="125" cy="90" r="66" fill="url(#ended-glow)"/>
+                <circle cx="125" cy="90" r="30" fill="#fff"/>
+                <line x1="171" y1="90" x2="219" y2="90" stroke="#5c5c5c" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 7"/>
+                <circle cx="265" cy="90" r="29.25" fill="none" stroke="#fff" stroke-width="1.5"/>
+              </svg>
+              <div class="a-center a-rise" style="--d:90;padding-top:12px">
+                <div class="a-label">Chat closed · 17 min</div>
+                <div class="a-h3">Thanks for being here.</div>
+                <div class="a-sub">This chat can't be reopened. What was said stays between two strangers.</div>
+              </div>
+              <div class="a-rise" style="--d:180;display:flex;flex-direction:column;gap:12px;padding:40px 24px 0">
+                <div class="a-label" style="text-align:center">How do you feel now?</div>
+                <div class="a-feel"><span class="is-on">Lighter</span><span class="glass">The same</span><span class="glass">Heavier</span></div>
+                <span class="a-ghost" style="font-size:14px">Feeling heavier? Find support<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+              </div>
+              <div class="a-bottom a-bottom--tight a-rise" style="--d:270">
+                <span class="a-primary">Talk to someone new</span>
+                <span class="a-ghost">Back to topics</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="device-dots" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     Topics
+     ===================================================================== -->
+<section class="topics" id="topics" aria-labelledby="topics-title">
+  <div class="wrap">
+    <div class="topics__head">
+      <h2 class="h2" id="topics-title" data-reveal>What’s on your mind?</h2>
+      <p class="lede">Pick a topic and Nymo looks for someone who picked it too. Or choose Anything and see where it goes.</p>
+    </div>
+
+    <ul class="topic-list" role="list" aria-label="Topics">
+      <li><button class="topic" type="button" aria-pressed="true" data-topic="Loneliness">Loneliness</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Relationships">Relationships</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Family">Family</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Heartbreak">Heartbreak</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Self-doubt">Self-doubt</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Grief &amp; loss">Grief &amp; loss</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Work &amp; school">Work &amp; school</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Stress">Stress</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="The future">The future</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Friendship">Friendship</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Secrets">Secrets</button><span class="sep" aria-hidden="true">,</span></li>
+      <li><button class="topic" type="button" aria-pressed="false" data-topic="Just venting">Just venting</button></li>
+      <li><span class="or" aria-hidden="true">or</span><button class="topic" type="button" aria-pressed="false" data-topic="">Anything</button><span class="sep" aria-hidden="true">.</span></li>
+    </ul>
+
+    <p class="match-line" aria-live="polite">
+      <svg class="mini-pair" viewBox="0 0 42 22" aria-hidden="true"><circle class="m-you" cx="11" cy="11" r="10" fill="#fff"/><circle class="m-them" cx="31" cy="11" r="9.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+      <span class="match-line__text">Someone, somewhere in the world, chose <strong>Loneliness</strong> too.</span>
+    </p>
+  </div>
+</section>
+
+<!-- Band: runs with the scroll, faster and tilted when you scroll fast -->
+<div class="ribbon" aria-hidden="true" data-ribbon>
+  <div class="ribbon__track" data-ribbon-track>
+    <span>Anonymous</span><i class="ribbon__dot"></i><span>One-on-one</span><i class="ribbon__ring"></i><span>Worldwide</span><i class="ribbon__dot"></i><span>No names</span><i class="ribbon__ring"></i><span>No profiles</span><i class="ribbon__dot"></i>
+    <span>Anonymous</span><i class="ribbon__dot"></i><span>One-on-one</span><i class="ribbon__ring"></i><span>Worldwide</span><i class="ribbon__dot"></i><span>No names</span><i class="ribbon__ring"></i><span>No profiles</span><i class="ribbon__dot"></i>
+  </div>
+</div>
+
+<!-- =====================================================================
+     Privacy filter — live demo
+     ===================================================================== -->
+<section class="filter" id="filter" aria-labelledby="filter-title">
+  <div class="wrap filter__grid">
+    <div class="filter__copy">
+      <h2 class="h2 filter__title" id="filter-title" data-scramble>My name is <span class="nowrap"><span class="bar" style="--w:2.05em" data-secret="Mia"><span class="sr">(name hidden)</span></span>.</span><br> I live in <span class="nowrap"><span class="bar" style="--w:3.1em" data-secret="Vienna"><span class="sr">(place hidden)</span></span>.</span></h2>
+      <p class="lede">Nymo hides names, places, phone numbers, email addresses, links and @handles before a message is saved. The other person sees a gray bar. The original text is never stored.</p>
+      <ul class="filter__kinds" role="list" aria-label="What Nymo hides">
+        <li class="kind glass"><i aria-hidden="true"></i>Names</li>
+        <li class="kind glass"><i aria-hidden="true"></i>Places</li>
+        <li class="kind glass"><i aria-hidden="true"></i>Phone numbers</li>
+        <li class="kind glass"><i aria-hidden="true"></i>Email addresses</li>
+        <li class="kind glass"><i aria-hidden="true"></i>Links</li>
+        <li class="kind glass"><i aria-hidden="true"></i>@handles</li>
+      </ul>
+      <p class="fine">The filter looks for common patterns, so it can miss things. Keep anything that could identify you to yourself.</p>
+    </div>
+
+    <div class="demo glass">
+      <div class="demo__head">
+        <svg class="demo__avatar" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+        <div class="demo__who"><b>What the stranger sees</b><span>Same filter as the app. Try it below.</span></div>
+      </div>
+      <div class="demo__thread" id="demo-thread" role="log" aria-live="polite" aria-label="Messages as the other person sees them">
+        <div class="msg">
+          <p class="bubble glass">hey, my name is <span class="hid" style="--n:3"><span class="sr">(name hidden)</span></span>. i live in <span class="hid" style="--n:6"><span class="sr">(place hidden)</span></span>, text me <span class="hid" style="--n:15"><span class="sr">(phone number hidden)</span></span> or <span class="hid" style="--n:11"><span class="sr">(handle hidden)</span></span></p>
+          <p class="msg__note"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6L12 3z"/></svg>Nymo hid a name, a place name, a phone number and a handle</p>
+        </div>
+      </div>
+      <form class="composer" id="demo-form" autocomplete="off">
+        <label class="sr" for="demo-input">Write a message</label>
+        <div class="composer__row">
+          <input class="field" id="demo-input" name="message" type="text" placeholder="Say what’s on your mind…" maxlength="280" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="send">
+          <button class="send" type="submit" aria-label="Send" disabled>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+          </button>
+        </div>
+        <div class="examples" role="group" aria-label="Try an example">
+          <span class="examples__label" aria-hidden="true">Try</span>
+          <button class="example glass" type="button" data-example="my name's Jonas, nice to meet you">a name</button>
+          <button class="example glass" type="button" data-example="i grew up in Lisbon and moved to Vienna last year">places</button>
+          <button class="example glass" type="button" data-example="you can text me: +43 660 1234567">a number</button>
+          <button class="example glass" type="button" data-example="write me at jonas.k@example.com">an email</button>
+          <button class="example glass" type="button" data-example="find me on insta, @jonas.writes">a handle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     Privacy ledger — the white sheet
+     ===================================================================== -->
+<section class="paper" id="privacy" aria-labelledby="privacy-title">
+  <div class="paper__sheet" data-sheet>
+    <div class="wrap">
+      <div class="paper__head">
+        <h2 class="h2" id="privacy-title" data-reveal>Nothing lingers.</h2>
+        <p class="lede">Nymo keeps as little as it can, for as short as it can. This is everything it stores, and when it’s gone.</p>
+      </div>
+    </div>
+
+    <!-- The life of one message, told while you scroll -->
+    <div class="story" data-story>
+      <div class="story__pin">
+        <div class="wrap story__grid">
+          <div class="story__track">
+          <span class="story__rail" aria-hidden="true"><span data-story-rail></span></span>
+          <ol class="story__steps" role="list" aria-label="What happens to a message">
+            <li class="story__step is-active" data-stop>
+              <span class="story__node story__node--you" aria-hidden="true"></span>
+              <span class="story__t">You send a message</span>
+              <span class="story__s">It goes to Nymo’s server first, not straight to the other person.</span>
+            </li>
+            <li class="story__step" data-stop>
+              <span class="story__node" aria-hidden="true"></span>
+              <span class="story__t">Personal details are hidden</span>
+              <span class="story__s">Only the filtered version is saved and delivered.</span>
+            </li>
+            <li class="story__step" data-stop>
+              <span class="story__node" aria-hidden="true"></span>
+              <span class="story__t">The chat ends</span>
+              <span class="story__s">When one of you leaves, or after 30 quiet minutes.</span>
+            </li>
+            <li class="story__step" data-stop>
+              <span class="story__node story__node--gone" aria-hidden="true"></span>
+              <span class="story__t">Deleted for good</span>
+              <span class="story__s">60 minutes later, the chat and every message in it are gone.</span>
+            </li>
+          </ol>
+          </div>
+
+          <div class="story__stage" aria-hidden="true">
+            <p class="story__sys" data-story-sys>Chat closed · 17 min</p>
+            <div class="story__bubble" data-story-bubble>my name is <span class="story__secret" data-secret="name">Mia</span>, i live in <span class="story__secret" data-secret="place">Vienna</span>. can we just talk for a bit?</div>
+            <p class="story__note" data-story-note><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6L12 3z"/></svg>Nymo hid a name and a place name</p>
+            <div class="story__clock">
+              <span class="story__clock-label" data-story-label>Deleted after the chat ends</span>
+              <span class="story__time" data-story-time>60:00</span>
+            </div>
+            <canvas class="story__dust" data-story-dust></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <table class="ledger">
+        <caption class="sr">What Nymo stores and when it’s deleted</caption>
+        <thead>
+          <tr><th scope="col">What</th><th scope="col">What it is</th><th scope="col">How long</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Who you are</th><td>A random ID, created when you first open the app. No account, no email, no phone number.</td><td class="ledger__when">Until you tap Delete my data</td></tr>
+          <tr><th scope="row">Your messages</th><td>Only the filtered text. The original is never stored.</td><td class="ledger__when">Deleted 60 min after the chat ends</td></tr>
+          <tr><th scope="row">Quiet chats</th><td>A chat with no new messages ends on its own.</td><td class="ledger__when">Ends after 30 min</td></tr>
+          <tr><th scope="row">Your search</th><td>Your topic, age groups and the languages you speak, while Nymo looks for someone.</td><td class="ledger__when">Removed when you’re matched or cancel</td></tr>
+          <tr><th scope="row">Last seen</th><td>When the app was last open, used only for the online count.</td><td class="ledger__when">Deleted after 24 h</td></tr>
+          <tr><th scope="row">Blocked people</th><td>Random IDs, so you’re never matched with them again.</td><td class="ledger__when">Until you unblock them</td></tr>
+          <tr><th scope="row">Reports</th><td>The reason, your note and the last 100 filtered messages, for the safety team to review.</td><td class="ledger__when">Kept for review</td></tr>
+          <tr><th scope="row">Daily counts</th><td>Totals like how many chats there were and how people felt afterwards. Nothing in them points to you.</td><td class="ledger__when">Totals only, never per person</td></tr>
+          <tr><th scope="row">Purchases</th><td>Google Play handles the payment. Nymo only learns whether Plus is active, and until when.</td><td class="ledger__when">Deleted 30 days after Plus ends</td></tr>
+          <tr><th scope="row">Campus code</th><td>If you join one: which campus your random ID belongs to. No name, no student ID.</td><td class="ledger__when">Until you leave the campus</td></tr>
+          <tr><th scope="row">On your phone</th><td>No chat history, and chats are left out of device backups.</td><td class="ledger__when">Nothing is kept</td></tr>
+        </tbody>
+      </table>
+
+      <p class="paper__foot">
+        <span>Servers in Frankfurt, Germany.</span>
+        <span>Message text never appears in server logs.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     Safety
+     ===================================================================== -->
+<section class="safety" id="safety" aria-labelledby="safety-title">
+  <div class="wrap">
+    <div class="safety__head">
+      <h2 class="h2" id="safety-title" data-reveal>A few ground rules.</h2>
+      <p class="lede">Everyone agrees to them before their first chat. They keep Nymo kind, anonymous and safe.</p>
+    </div>
+
+    <ul class="rules" role="list">
+      <li class="rule">
+        <span class="rule__icon glass" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.5 10.5 0 0 1 12 5c5 0 8.6 4.4 9.5 7a13.5 13.5 0 0 1-2.5 3.6"/><path d="M6.6 6.6C4.5 8 3.1 10.1 2.5 12c.9 2.6 4.5 7 9.5 7 1.7 0 3.2-.5 4.5-1.2"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg></span>
+        <h3>Stay anonymous</h3>
+        <p>Don’t share names, socials, numbers or where you live. Nymo hides them automatically.</p>
+      </li>
+      <li class="rule">
+        <span class="rule__icon glass" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.1a4.3 4.3 0 0 1 7.5 2.7C19.5 15.4 12 20 12 20z"/></svg></span>
+        <h3>Be kind</h3>
+        <p>Listen the way you’d want to be listened to. No judging, no pushing.</p>
+      </li>
+      <li class="rule">
+        <span class="rule__icon glass" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 8l4 4-4 4"/><path d="M19 12H9"/></svg></span>
+        <h3>Leave anytime</h3>
+        <p>You never owe anyone a conversation. Report or block in one tap.</p>
+      </li>
+      <li class="rule">
+        <span class="rule__icon glass" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path d="M6 6l3.5 3.5"/><path d="M14.5 14.5L18 18"/><path d="M18 6l-3.5 3.5"/><path d="M9.5 14.5L6 18"/></svg></span>
+        <h3>Not a crisis line</h3>
+        <p>Nymo is peer conversation, not professional help. In danger? Call your local emergency number.</p>
+      </li>
+    </ul>
+
+    <div class="protect">
+      <div class="protect__item">
+        <h3 class="h3">Adults only. Age groups, never ages.</h3>
+        <p>Nymo is for people 18 and older. The person you talk to sees your age group, never your exact age. Choose who you’d like to talk to; if nobody’s around after 30 seconds, Nymo widens the search to all ages, unless you’ve switched that off.</p>
+        <div class="ages" aria-label="Age groups">
+          <span class="age glass">18–24</span><span class="age is-on">25–34</span><span class="age glass">35–44</span><span class="age glass">45–54</span><span class="age glass">55+</span>
+        </div>
+      </div>
+      <div class="protect__item">
+        <h3 class="h3">Report and block in one tap.</h3>
+        <p>Reports are anonymous: the other person won’t know it was you. The chat ends, and you won’t be matched with them again.</p>
+        <ul class="reasons glass" role="list" aria-label="Reasons you can report a chat for">
+          <li><span class="radio" aria-hidden="true"></span>Harassment or bullying</li>
+          <li><span class="radio" aria-hidden="true"></span>Sexual content</li>
+          <li><span class="radio" aria-hidden="true"></span>Hate or discrimination</li>
+          <li><span class="radio" aria-hidden="true"></span>Asked for personal info</li>
+          <li><span class="radio" aria-hidden="true"></span>Spam or scam</li>
+          <li><span class="radio" aria-hidden="true"></span>Might be under 18</li>
+        </ul>
+        <a class="more" href="child-safety.html">Our child safety standards<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <aside class="support glass" aria-labelledby="support-title">
+      <span class="support__icon glass" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path d="M6 6l3.5 3.5"/><path d="M14.5 14.5L18 18"/><path d="M18 6l-3.5 3.5"/><path d="M9.5 14.5L6 18"/></svg></span>
+      <div class="support__body">
+        <h3 class="h3" id="support-title">You don’t have to carry this alone.</h3>
+        <p>If you’re in danger right now, call your local emergency number (112 works across the EU). To talk to a trained listener, find a helpline in your country, by phone or chat.</p>
+      </div>
+      <div class="support__actions">
+        <a class="btn btn--primary" href="https://findahelpline.com" target="_blank" rel="noopener">Find a helpline<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg><span class="sr"> (opens in a new tab)</span></a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- =====================================================================
+     How Nymo stays free
+     ===================================================================== -->
+<section class="fund" id="free" aria-labelledby="fund-title">
+  <div class="wrap">
+    <div class="fund__head">
+      <h2 class="h2" id="fund-title" data-reveal>Free to talk.<br>Here’s how.</h2>
+      <p class="lede">No ads, no data to sell and no paywall in front of a conversation. This is how Nymo pays for its servers.</p>
+    </div>
+
+    <ul class="plans" role="list">
+      <li class="plan">
+        <span class="plan__when"><span class="plan__dot plan__dot--on" aria-hidden="true"></span>Always</span>
+        <h3>Every chat is free.</h3>
+        <p>Talking, the privacy filter, reporting and blocking never cost anything. Safety is never a paid extra.</p>
+      </li>
+      <li class="plan">
+        <span class="plan__when"><span class="plan__dot plan__dot--off" aria-hidden="true"></span>Never</span>
+        <h3>No ads. No data sales.</h3>
+        <p>There’s nothing to sell anyway: no profiles, and every message is gone within the hour.</p>
+      </li>
+      <li class="plan">
+        <span class="plan__when"><span class="plan__dot plan__dot--on" aria-hidden="true"></span>Now</span>
+        <h3>Supporters.</h3>
+        <p>If a chat helped, you can chip in once, right in the app. It doesn’t unlock anything. It keeps Nymo running for the next person.</p>
+      </li>
+      <li class="plan">
+        <span class="plan__when"><span class="plan__dot" aria-hidden="true"></span>Later</span>
+        <h3>Nymo Plus.</h3>
+        <p>Optional extras for regulars: match in your language, pick up to three topics, a private mood journal that stays on your phone, themes and app icons.</p>
+      </li>
+    </ul>
+
+    <aside class="campus glass" aria-labelledby="campus-title">
+      <div class="campus__body">
+        <span class="campus__kicker">For universities</span>
+        <h3 class="h3" id="campus-title">A pool for your students.</h3>
+        <p>Students join with a campus code. No names, no emails, no student IDs. They meet each other first and the rest of the world a few seconds later. The university sees monthly totals, like how many people talked and how they felt afterwards. Never a conversation.</p>
+        <a class="btn btn--glass glass" href="mailto:support@example.com?subject=Nymo%20for%20universities">Talk to us<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <svg class="campus__art" viewBox="0 0 280 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="campus-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity="0.14"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        </defs>
+        <g fill="#3d3d3d">
+          <circle cx="226" cy="28" r="2.4"/><circle cx="252" cy="70" r="2.4"/><circle cx="238" cy="118" r="2.4"/><circle cx="262" cy="160" r="2.4"/>
+          <circle cx="208" cy="178" r="2.4"/><circle cx="18" cy="24" r="2.4"/><circle cx="12" cy="176" r="2.4"/><circle cx="196" cy="12" r="2.4"/>
+        </g>
+        <circle cx="104" cy="100" r="92" fill="url(#campus-glow)"/>
+        <circle cx="104" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.24)" stroke-width="1" stroke-dasharray="2 5"/>
+        <g fill="#6e6e6e">
+          <circle cx="70" cy="62" r="3"/><circle cx="140" cy="58" r="3"/><circle cx="58" cy="128" r="3"/><circle cx="104" cy="146" r="3"/>
+          <circle cx="150" cy="128" r="3"/><circle cx="104" cy="44" r="3"/><circle cx="46" cy="94" r="3"/>
+        </g>
+        <path class="campus__reach" d="M170 84 Q 208 46 247 66" fill="none" stroke="#5e5e5e" stroke-width="1" stroke-dasharray="1.5 4.5" stroke-linecap="round"/>
+        <line x1="86" y1="108" x2="126" y2="86" stroke="#fff" stroke-width="1.25" stroke-linecap="round"/>
+        <circle cx="86" cy="108" r="7" fill="#fff"/>
+        <circle cx="126" cy="86" r="6.4" fill="#000" stroke="#fff" stroke-width="1.25"/>
+        <text class="campus__label" x="104" y="190" text-anchor="middle">your campus</text>
+        <text class="campus__label" x="250" y="94" text-anchor="middle">everyone</text>
+      </svg>
+    </aside>
+  </div>
+</section>
+
+<!-- =====================================================================
+     FAQ
+     ===================================================================== -->
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq__grid">
+    <div class="faq__head">
+      <h2 class="h2" id="faq-title" data-reveal>Questions</h2>
+      <p class="lede">The short answers about privacy, safety and how Nymo works.</p>
+    </div>
+    <div class="faq__list">
+      <details class="qa">
+        <summary>Is Nymo really anonymous?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Yes. There’s no account, no email and no phone number. Nymo creates a random ID on your phone, and the person you talk to only sees “Stranger”, the topic and your age group.</p></div>
+      </details>
+      <details class="qa">
+        <summary>What exactly gets hidden?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Names after phrases like “my name is”, places after “I live in” or “I’m from”, phone numbers, email addresses, links and @handles. They’re replaced with a gray bar before the message is saved.</p><p>The filter catches common patterns, not everything, so keep details that could identify you to yourself.</p></div>
+      </details>
+      <details class="qa">
+        <summary>How long are chats kept?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Messages are deleted 60 minutes after a chat ends. A chat with no new messages for 30 minutes ends on its own. Nothing is saved on your phone, and chats are left out of device backups.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Can I talk to the same person again?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>No. Once a chat closes it can’t be reopened, and there are no profiles to look anyone up. Each conversation stands on its own.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Who can use Nymo?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Adults, 18 and older. Nymo asks for your age group and doesn’t check IDs, so please be honest. If someone seems to be under 18, report the chat.</p></div>
+      </details>
+      <details class="qa">
+        <summary>What if someone makes me uncomfortable?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>End the chat with one tap. You can also report or block them. Reports are anonymous, and you won’t be matched with that person again.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Is Nymo therapy or a crisis service?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>No. Nymo is conversation between peers. If you’re in danger, call your local emergency number. To talk to a trained listener, <a href="https://findahelpline.com" target="_blank" rel="noopener">find a helpline</a> in your country.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Can I delete my data?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Yes. Settings › Delete my data ends your chats and removes your ID, your block list and everything linked to it. Reports you’ve sent stay for safety, with only the random ID.</p><p>If you have Nymo Plus, the subscription itself keeps running in Google Play until you cancel it there.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Is Nymo free?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Yes. Every chat, the privacy filter and all safety tools are free, and they’ll stay that way. If you like, you can support Nymo once from inside the app. Optional extras may come later as Nymo Plus. There are no ads, and no data is sold.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Can my university see my chats?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>No. A campus code only tells Nymo to look for someone from your campus first. Your university sees totals over a month, with small numbers left out: never names, never conversations.</p><p>The person you meet sees “Same campus”, so you might cross paths. Share accordingly.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Which phones does Nymo run on?<span class="qa__icon glass" aria-hidden="true"><i></i></span></summary>
+        <div class="qa__a"><p>Android 8.0 or newer. There’s no iPhone version yet.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     Closing
+     ===================================================================== -->
+<section class="closing" id="download" aria-labelledby="closing-title">
+  <div class="wrap closing__inner">
+    <div class="closing__stage" data-mark-stage>
+      <canvas class="closing__gl" data-mark aria-hidden="true"></canvas>
+      <svg class="closing__mark" viewBox="-40 -50 160 120" aria-hidden="true">
+        <defs><radialGradient id="closing-glow"><stop offset="0" stop-color="#fff" stop-opacity="0.22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="40" cy="10" r="64" fill="url(#closing-glow)"/>
+        <circle cx="20" cy="10" r="20" fill="#fff"/>
+        <circle cx="60" cy="10" r="19.1" fill="#000" stroke="#fff" stroke-width="1.8"/>
+      </svg>
+    </div>
+    <h2 class="h2 closing__title" id="closing-title" data-reveal>Somewhere in the world, someone is ready to listen.</h2>
+    <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=app.nymo&amp;referrer=utm_source%3Dnymo-website%26utm_medium%3Dclosing%26utm_campaign%3Dwebsite" data-store="closing" data-magnetic>Get it on Google Play</a>
+    <p class="closing__note">Only for people 18 and older. Android 8.0 or newer.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     Footer
+     ===================================================================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#top" aria-label="Nymo, back to top">
+          <svg class="brand__mark" viewBox="0 0 40 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#fff"/><circle cx="30" cy="10" r="9.25" fill="none" stroke="#fff" stroke-width="1.5"/></svg>
+          <span class="brand__word">nymo</span>
+        </a>
+        <p class="footer__tag">Anonymous one-on-one conversations with someone, somewhere in the world.</p>
+      </div>
+      <nav class="footer__col" aria-labelledby="footer-nymo">
+        <h2 id="footer-nymo">Nymo</h2>
+        <a href="#how">How it works</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#safety">Safety</a>
+        <a href="#free">How it’s free</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <nav class="footer__col" aria-labelledby="footer-help">
+        <h2 id="footer-help">Help</h2>
+        <a href="https://findahelpline.com" target="_blank" rel="noopener">Find a helpline<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg><span class="sr"> (opens in a new tab)</span></a>
+        <a href="child-safety.html">Child safety</a>
+        <a href="mailto:support@example.com">Contact</a>
+        <a href="https://play.google.com/store/apps/details?id=app.nymo&amp;referrer=utm_source%3Dnymo-website%26utm_medium%3Dfooter%26utm_campaign%3Dwebsite" data-store="footer">Get the app</a>
+        <!-- Add once they exist: <a href="privacy.html">Privacy policy</a> <a href="imprint.html">Imprint</a> -->
+      </nav>
+    </div>
+    <div class="footer__base">
+      <p>© <span data-year>2026</span> Nymo</p>
+      <p>Nymo is not a crisis service. In an emergency, call 112 or your local emergency number.</p>
+      <p>This website uses no cookies and no trackers.</p>
+    </div>
+  </div>
+  <p class="footer__word" aria-hidden="true" data-footword>nymo</p>
+</footer>
+
+<!-- Cursor: you (the dot) and someone following you (the ring) -->
+<div class="cursor is-hidden" aria-hidden="true" data-cursor><span class="cursor__ring" data-cursor-ring></span><span class="cursor__dot" data-cursor-dot></span></div>
+</body>
+</html>
